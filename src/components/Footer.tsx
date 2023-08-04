@@ -1,24 +1,30 @@
-import { type Todo as TodoType } from '../types'
+import { type FilterValues } from '../types'
 import { Filters } from './Filters'
 
 interface Props {
   activeCount: number
-  todos: TodoType[]
+  completedCount: number
+  filterSelected: FilterValues
   onClearCompleted: () => void
+  handlerFilterChange: (filter: FilterValues) => void
 }
 
 export const Footer: React.FC<Props> = ({
-  activeCount,
-  todos,
-  onClearCompleted
+  activeCount = 0,
+  completedCount = 0,
+  onClearCompleted,
+  filterSelected,
+  handlerFilterChange
 }) => {
   return (
     <footer className='footer'>
-      <span>
-        <strong>{todos.length}</strong> tareas pendientes
+      <span className='todo-count'>
+        <strong>{activeCount}</strong> tareas pendientes
       </span>
-
-      <Filters filterSelected={'algo'} onFilterChange={'algo'} />
+      <Filters
+        filterSelected={filterSelected}
+        onFilterChange={handlerFilterChange}
+      />
     </footer>
   )
 }
